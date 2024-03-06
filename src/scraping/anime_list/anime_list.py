@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 from selenium import webdriver
+from slugify import slugify
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -55,6 +56,7 @@ def iterate_anime():
         anime = {
             "id": generate_random_id.generate_random_id(),
             "title": anime_element.find('div', class_='tt tts').find('h2').text,
+            "slug": slugify(anime_element.find('div', class_='tt tts').find('h2').text, separator='-'),
             "type": anime_element.find('div', class_='typez').text,
             "status": anime_element.find('div', class_='bt').find('span', class_='epx').text,
             "img": img_url
